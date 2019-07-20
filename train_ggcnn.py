@@ -4,7 +4,6 @@ import sys
 import argparse
 import logging
 
-import cv2
 
 import torch
 import torch.utils.data
@@ -23,7 +22,6 @@ from models.common import post_process_output
 
 logging.basicConfig(level=logging.INFO)
 
-cv2.namedWindow('Display', cv2.WINDOW_NORMAL)
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train GG-CNN')
@@ -162,17 +160,6 @@ def train(epoch, net, device, train_data, optimizer, batches_per_epoch, vis=Fals
             loss.backward()
             optimizer.step()
 
-            # Display the images
-            if vis:
-                imgs = []
-                n_img = min(4, x.shape[0])
-                for idx in range(n_img):
-                    imgs.extend([x[idx,].numpy().squeeze()] + [yi[idx,].numpy().squeeze() for yi in y] + [
-                        x[idx,].numpy().squeeze()] + [pc[idx,].detach().cpu().numpy().squeeze() for pc in lossd['pred'].values()])
-                gridshow('Display', imgs,
-                         [(xc.min().item(), xc.max().item()), (0.0, 1.0), (0.0, 1.0), (-1.0, 1.0), (0.0, 1.0)] * 2 * n_img,
-                         [cv2.COLORMAP_BONE] * 10 * n_img, 10)
-                cv2.waitKey(2)
 
     results['loss'] /= batch_idx
     for l in results['losses']:
