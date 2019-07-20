@@ -3,6 +3,7 @@ import glob
 
 from .grasp_data import GraspDatasetBase
 from utils.dataset_processing import grasp, image
+from pathlib import Path
 
 
 class CornellDataset(GraspDatasetBase):
@@ -18,8 +19,7 @@ class CornellDataset(GraspDatasetBase):
         :param kwargs: kwargs for GraspDatasetBase
         """
         super(CornellDataset, self).__init__(**kwargs)
-
-        graspf = glob.glob(os.path.join(file_path, '*', 'pcd*cpos.txt'))
+        graspf = [str(f) for f in Path(file_path).glob('pcd*cpos.txt')]
         graspf.sort()
         l = len(graspf)
         if l == 0:
