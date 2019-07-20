@@ -33,7 +33,7 @@ def parse_args():
 
     # Dataset & Data & Training
     parser.add_argument('--dataset', type=str, help='Dataset Name ("cornell" or "jaquard")')
-    parser.add_argument('--dataset-path', type=str, help='Path to dataset')
+    parser.add_argument('--dataset-path', type=str, default="content/", help='Path to dataset')
     parser.add_argument('--use-depth', type=int, default=1, help='Use Depth image for training (1/0)')
     parser.add_argument('--use-rgb', type=int, default=0, help='Use RGB image for training (0/1)')
     parser.add_argument('--split', type=float, default=0.9, help='Fraction of data for training (remainder is validation)')
@@ -48,7 +48,7 @@ def parse_args():
 
     # Logging etc.
     parser.add_argument('--description', type=str, default='', help='Training description')
-    parser.add_argument('--outdir', type=str, default='output/models/', help='Training Output Directory')
+    parser.add_argument('--outdir', type=str, default='content/gdrive/My Drive/models/cornell', help='Training Output Directory')
     parser.add_argument('--logdir', type=str, default='tensorboard/', help='Log directory')
     parser.add_argument('--vis', action='store_true', help='Visualise the training process')
 
